@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Profile</title>
+<style>
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5ebe0, #ffb300);
+    color: #3e2723;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #f9efdb;
+    padding: 32px 24px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(109,76,65,0.3);
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  h2 {
+    color: #6d4c41;
+    margin: 0;
+    font-size: 2rem;
+  }
+  .nav-links {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  .nav-links a {
+    color: #6d4c41;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: #f5ebe0;
+    transition: all 0.3s ease;
+  }
+  .nav-links a:hover {
+    background: #ffb300;
+    transform: translateY(-2px);
+  }
+  .profile-info {
+    background: #f5ebe0;
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+  }
+  .profile-info h3 {
+    color: #6d4c41;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+  }
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #b3926f;
+    margin-bottom: 12px;
+  }
+  .info-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+  .info-label {
+    font-weight: 600;
+    color: #6d4c41;
+  }
+  .info-value {
+    color: #3e2723;
+    font-weight: 500;
+  }
+  .edit-section {
+    background: #f5ebe0;
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  .edit-section h3 {
+    color: #6d4c41;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0 20px;
+    border-radius: 8px;
+    border: 1px solid #b3926f;
+    font-size: 1rem;
+    background: #f9efdb;
+    color: #3e2723;
+    box-sizing: border-box;
+  }
+  input[type="submit"], .btn {
+    background-color: #ffb300;
+    color: #3e2723;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 179, 0, 0.3);
+    display: inline-block;
+    text-decoration: none;
+  }
+  input[type="submit"]:hover, .btn:hover {
+    background-color: #ffcb6b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 179, 0, 0.4);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .stat-card {
+    background: #f9efdb;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #b3926f;
+  }
+  .stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffb300;
+    display: block;
+  }
+  .stat-label {
+    color: #6d4c41;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+  .message-list {
+    background: #e8f5e8;
+    border-left: 4px solid #4caf50;
+    padding: 12px 16px;
+    margin: 16px 0;
+    border-radius: 4px;
+    color: #2e7d32;
+  }
+  .message-list.error {
+    background: #ffebee;
+    border-left-color: #f44336;
+    color: #c62828;
+  }
+
+  @media (max-width: 768px) {
+    body {
+      padding: 10px;
+    }
+    .container {
+      padding: 20px 16px;
+    }
+    .header {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    .info-item {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: left;
+    }
+    .info-value {
+      margin-top: 8px;
+    }
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>👤 User Profile</h2>
+      <div class="nav-links">
+        <a href="{{ url_for('dashboard') }}">📁 Dashboard</a>
+        <a href="{{ url_for('auth.logout') }}">🚪 Logout</a>
+      </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="message-list">
+        {% for message in messages %}
+          <div>{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="profile-info">
+      <h3>📊 Account Information</h3>
+      <div class="info-item">
+        <span class="info-label">📧 Email Address:</span>
+        <span class="info-value">{{ email }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">👤 Full Name:</span>
+        <span class="info-value">{{ name }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">📅 Account Status:</span>
+        <span class="info-value">✅ Active</span>
+      </div>
+    </div>
+
+    <div class="profile-info">
+      <h3>📈 Usage Statistics</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-number">{{ upload_count }}</span>
+          <div class="stat-label">Files Uploaded</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">✅</span>
+          <div class="stat-label">Account Status</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="edit-section">
+      <h3>✏️ Edit Profile</h3>
+      <form method="post" autocomplete="off">
+        <label for="name" style="display: block; margin-bottom: 8px; font-weight: 600; color: #6d4c41;">Full Name:</label>
+        <input id="name" type="text" name="name" value="{{ name }}" placeholder="Enter your full name" required />
+        <input type="submit" value="Update Profile" />
+      </form>
+    </div>
+  </div>
+</body>
+</html>

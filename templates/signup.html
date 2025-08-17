@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up</title>
+  <style>
+    body {
+        background: #f5ebe0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #3e2723;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 400px;
+        margin: 80px auto;
+        background: #f9efdb;
+        padding: 32px 24px;
+        box-shadow: 0 4px 24px rgba(109,76,65,0.08);
+        border-radius: 12px;
+        border: 1px solid #b3926f;
+    }
+    h2 {
+        color: #6d4c41;
+        margin-bottom: 18px;
+    }
+    input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 14px;
+        border: 1px solid #b3926f;
+        border-radius: 6px;
+        background: #f5ebe0;
+        color: #3e2723;
+    }
+    input[type="submit"] {
+        background: #ffb300;
+        color: #3e2723;
+        border: none;
+        padding: 10px 22px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.2s;
+    }
+    input[type="submit"]:hover {
+        background: #ffcb6b;
+    }
+    a {
+        color: #6d4c41;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    ul.message-list {
+        padding-left: 18px;
+        margin-top: 12px;
+        color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Sign Up</h2>
+    <form method="post">
+        <label for="username">Username:</label><br>
+        <input id="username" type="text" name="username" required>
+        <label for="password">Password:</label><br>
+        <input id="password" type="password" name="password" required>
+        <input type="submit" value="Sign Up">
+    </form>
+    <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="message-list">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+      {% endif %}
+    {% endwith %}
+  </div>
+</body>
+</html>

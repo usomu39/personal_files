@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin Login</title>
+<style>
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: #ecf0f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background: #34495e;
+    padding: 32px 24px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    border: 2px solid #e74c3c;
+  }
+  h2 {
+    color: #e74c3c;
+    margin-bottom: 24px;
+    font-size: 2rem;
+  }
+  input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0 20px;
+    border-radius: 8px;
+    border: 1px solid #7f8c8d;
+    font-size: 1rem;
+    background: #2c3e50;
+    color: #ecf0f1;
+    box-sizing: border-box;
+  }
+  input[type="submit"] {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  input[type="submit"]:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+  }
+  ul.message-list {
+    text-align: left;
+    padding-left: 20px;
+    color: #e74c3c;
+    font-weight: 600;
+    margin-top: 12px;
+  }
+  .success-message {
+    color: #27ae60;
+  }
+  a {
+    color: #3498db;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>🔐 Admin Portal</h2>
+    <form method="post" autocomplete="off">
+      <input type="text" name="username" placeholder="Admin Username" required />
+      <input type="password" name="password" placeholder="Admin Password" required />
+      <input type="submit" value="Login as Admin" />
+    </form>
+    
+    <p style="margin-top: 20px; font-size: 0.9rem;">
+      <a href="{{ url_for('home') }}">← Back to Main App</a>
+    </p>
+    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="message-list">
+        {% for message in messages %}
+          <li class="{% if 'successful' in message.lower() %}success-message{% endif %}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% endwith %}
+  </div>
+</body>
+</html>

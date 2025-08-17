@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login</title>
+<style>
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5ebe0, #ffb300);
+    color: #3e2723;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background: #f9efdb;
+    padding: 32px 24px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(109,76,65,0.3);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+  }
+  h2 {
+    color: #6d4c41;
+    margin-bottom: 24px;
+    font-size: 2rem;
+  }
+  input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0 20px;
+    border-radius: 8px;
+    border: 1px solid #b3926f;
+    font-size: 1rem;
+    background: #f5ebe0;
+    color: #3e2723;
+    box-sizing: border-box;
+  }
+  input[type="submit"] {
+    background-color: #ffb300;
+    color: #3e2723;
+    border: none;
+    padding: 14px;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  input[type="submit"]:hover {
+    background-color: #ffcb6b;
+  }
+  a {
+    color: #6d4c41;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  ul.message-list {
+    text-align: left;
+    padding-left: 20px;
+    color: #d32f2f;
+    font-weight: 600;
+    margin-top: 12px;
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 24px 16px;
+      border-radius: 12px;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    input[type="email"], input[type="password"], input[type="submit"] {
+      font-size: 1rem;
+      padding: 12px;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <form method="post" autocomplete="off">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <input type="submit" value="Login" />
+    </form>
+    <p>New user? <a href="{{ url_for('auth.register') }}">Register here</a></p>
+    <p><a href="{{ url_for('auth.forgot_password') }}">Forgot Password?</a></p>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="message-list">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% endwith %}
+  </div>
+</body>
+</html>
